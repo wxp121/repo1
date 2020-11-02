@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wxp.question.mapper.QuestionMapper">
+    <!--修改教师-->
+    <update id="Update" parameterType="com.wxp.question.pojo.Question">
+        update Question set query=#{query} , creat_date=#{creat_date} ,
+        level=#{level} , coures_id = #{coures_id} where id = #{id}
+    </update>
+
+    <!--删除教师-->
+    <delete id="Delete" parameterType="int">
+        delete from Question where id = #{id}
+    </delete>
+
+</mapper>

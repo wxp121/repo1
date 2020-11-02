@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aaa.mapper.ResourceMapper">
+  <resultMap id="BaseResultMap" type="com.aaa.pojo.Resource">
+    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="menu_name" jdbcType="VARCHAR" property="menuName" />
+    <result column="menu_url" jdbcType="VARCHAR" property="menuUrl" />
+    <result column="parent_id" jdbcType="INTEGER" property="parentId" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="state" jdbcType="INTEGER" property="state" />
+  </resultMap>
+  <insert id="insert" parameterType="com.aaa.pojo.Resource">
+    insert into tb_resources (id, menu_name, menu_url, 
+      parent_id, type, remark, 
+      state)
+    values (#{id,jdbcType=INTEGER}, #{menuName,jdbcType=VARCHAR}, #{menuUrl,jdbcType=VARCHAR}, 
+      #{parentId,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, 
+      #{state,jdbcType=INTEGER})
+  </insert>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, menu_name, menu_url, parent_id, type, remark, state
+    from tb_resources
+  </select>
+  <select id="selectByLoginId" resultMap="BaseResultMap" parameterType="int">
+    select res.* from login_user u inner join user_role ur
+on u.user_id = ur.user_id
+inner join tb_roles  r
+on r.role_id = ur.role_id
+inner join resource_role rr
+on ur.role_id = rr.role_id
+inner join tb_resources res
+on rr.resources_id = res.id
+where u.user_id = #{loginId} and res.state = 1
+  </select>
+    <select id="selectByFId" resultMap="BaseResultMap">
+      select rs.* from tb_resources rs
+left join resource_role rr
+on rs.id = rr.resources_id
+left join tb_roles tr
+on tr.role_id = rr.role_id where  rs.parent_id = #{parentId}
+  <if test="ids != null">
+        and rr.role_id in
+    <foreach collection="ids" item="id" open="(" close=")" separator=",">
+            #{id}
+    </foreach>
+  </if>
+    </select>
+    <select id="selectByRoleId" resultMap="BaseResultMap">
+
+      select rs.* from tb_resources rs
+left join  resource_role rr
+on rs.id = rr.resources_id
+inner join tb_roles tr
+on tr.role_id = rr.role_id where tr.role_id = #{roldId}
+    </select>
+</mapper>

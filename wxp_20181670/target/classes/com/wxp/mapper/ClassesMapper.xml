@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wxp.mapper.ClassesMapper">
+    <!--查询所有班级-->
+    <select id="QueryAll" resultType="com.wxp.pojo.Classes">
+        SELECT * from tb_class
+    </select>
+
+    <!--根据ID查询班级-->
+    <select id="QueryOne" resultType="com.wxp.pojo.Classes" parameterType="int">
+        SELECT * from tb_class where class_id = #{class_id}
+    </select>
+
+</mapper>

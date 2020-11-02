@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aaa.mapper.LoginUserMapper">
+  <resultMap id="BaseResultMap" type="com.aaa.pojo.LoginUser">
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="login_name" jdbcType="VARCHAR" property="loginName" />
+    <result column="login_pwd" jdbcType="VARCHAR" property="loginPwd" />
+    <result column="user_real_name" jdbcType="VARCHAR" property="userRealName" />
+    <result column="user_state" jdbcType="INTEGER" property="userState" />
+  </resultMap>
+  <insert id="insert" parameterType="LoginUser">
+    insert into login_user (login_name, login_pwd,
+      user_real_name)
+    values (#{loginName,jdbcType=VARCHAR}, #{loginPwd,jdbcType=VARCHAR},
+      #{userRealName,jdbcType=VARCHAR}})
+  </insert>
+  <update id="updatePwd">
+        update login_user set login_pwd = #{pwd} where login_name = #{username}
+  </update>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select user_id, login_name, login_pwd, user_real_name, user_state
+    from login_user
+  </select>
+  <select id="selectByNamePwd" resultMap="BaseResultMap" parameterType="LoginUser">
+        select * from login_user where login_name = #{loginName} and login_pwd = #{loginPwd}
+  </select>
+  <select id="selectByName" resultMap="BaseResultMap" parameterType="String">
+    select * from login_user where login_name = #{username}
+  </select>
+</mapper>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aaa.demo.mapper.RoleMapper">
+  <resultMap id="BaseResultMap" type="com.aaa.demo.pojo.Role">
+    <result column="role_id" jdbcType="INTEGER" property="roleId" />
+    <result column="role_name" jdbcType="VARCHAR" property="roleName" />
+    <result column="role_des" jdbcType="VARCHAR" property="roleDes" />
+    <result column="role_state" jdbcType="INTEGER" property="roleState" />
+  </resultMap>
+  <insert id="insert" parameterType="com.aaa.demo.pojo.Role">
+    insert into tb_roles (role_id, role_name, role_des, 
+      role_state)
+    values (#{roleId,jdbcType=INTEGER}, #{roleName,jdbcType=VARCHAR}, #{roleDes,jdbcType=VARCHAR}, 
+      #{roleState,jdbcType=INTEGER})
+  </insert>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select role_id, role_name, role_des, role_state
+    from tb_roles
+  </select>
+  <select id="selectByLoginId" resultMap="BaseResultMap" parameterType="int">
+      select r.* from login_user u
+inner join user_role ur on u.user_id = ur.user_id
+inner join tb_roles r on ur.role_id = r.role_id
+where r.role_state = 1 and u.user_id = #{loginId}
+  </select>
+</mapper>

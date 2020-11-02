@@ -1,0 +1,35 @@
+server:
+  servlet:
+    context-path: /demo
+mybatis:
+  type-aliases-package: com.aaa.pojo  # 批量设置别名
+  mapper-locations: classpath:com/aaa/mapper/*.xml  # 设置mapper的路径
+  configuration:
+    auto-mapping-behavior: full # 设置全自动映射
+    use-column-label: true # 设置别名可以做列名
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/wxp?characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai&rewriteBatchedStatements=true
+    username: root
+    password: 123456
+  thymeleaf:
+    cache: false
+    suffix: .html
+  jackson:
+    # 如果使用字符串星表示用这行格式
+    date-format: yyyy-MM-dd
+    # 设置为东八区时间
+    timezone: GMT+8
+    # 想要值为2016-01-01
+    serialization:
+      write-dates-as-timestamps: false
+
+
+
+# 显示SQL语句
+logging:
+  level:
+    com:
+      aaa:
+        mapper: debug

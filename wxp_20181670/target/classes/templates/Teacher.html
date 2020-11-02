@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>查询所有教师</title>
+
+    <link rel="stylesheet" th:href="@{/webjars/layui/2.5.6/css/layui.css}"/>
+    <script type="text/javascript" th:src="@{/webjars/layui/2.5.6/lay/modules/jquery.js}"></script>
+
+    <link th:href="@{/static/bootstrap-3.3.7-dist/css/bootstrap.min.css}" rel="stylesheet">
+
+</head>
+<body>
+<a th:href="@{/demo/toAdd}" type="button" class="layui-btn">
+    <i class="layui-icon">&#xe654;</i>
+</a>
+<th:block th:if="!${#lists.isEmpty(teachers)}">
+    <table class="layui-table" width="70%">
+        <tr>
+            <td>教师编号</td>
+            <td>教师名称</td>
+            <td>教师性别</td>
+            <td>教师生日</td>
+            <td>教师照片</td>
+            <td>所教班级</td>
+            <td>操作</td>
+        </tr>
+        <tr th:each="ts:${teachers}" th:object="${ts}">
+            <td th:text="*{teacher_id}"></td>
+            <td th:text="*{teacher_name}"></td>
+            <td th:text="*{teacher_sex}"></td>
+            <td th:text="*{#dates.format(teacher_birth,'yyyy-MM-dd')}"></td>
+            <td>
+                <img th:src="@{|/photo/${ts.teacher_photo}|}" class="img-circle">
+            </td>
+            <td th:text="*{classes.class_name}"></td>
+            <td>
+                <a th:href="@{/demo/toUpdate/{teacher_id}(teacher_id=*{teacher_id})}" type="button" class="layui-btn">
+                    <i class="layui-icon">&#xe642;</i>
+                </a>
+                <a th:href="@{/demo/doDelete/{teacher_id}(teacher_id=*{teacher_id})}" type="button" class="layui-btn layui-btn-danger">
+                    <i class="layui-icon">&#xe640;</i>
+                </a>
+            </td>
+        </tr>
+    </table>
+</th:block>
+</body>
+</html>

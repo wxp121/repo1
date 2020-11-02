@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aaa.demo.mapper.ResourceRoleMapper">
+  <resultMap id="BaseResultMap" type="com.aaa.demo.pojo.ResourceRole">
+    <result column="resource_role_id" jdbcType="INTEGER" property="resourceRoleId" />
+    <result column="role_id" jdbcType="INTEGER" property="roleId" />
+    <result column="resources_id" jdbcType="INTEGER" property="resourcesId" />
+    <result column="state" jdbcType="INTEGER" property="state" />
+  </resultMap>
+  <insert id="insert" parameterType="com.aaa.demo.pojo.ResourceRole">
+    insert into resource_role (resource_role_id, role_id, resources_id, 
+      state)
+    values (#{resourceRoleId,jdbcType=INTEGER}, #{roleId,jdbcType=INTEGER}, #{resourcesId,jdbcType=INTEGER}, 
+      #{state,jdbcType=INTEGER})
+  </insert>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select resource_role_id, role_id, resources_id, state
+    from resource_role
+  </select>
+</mapper>

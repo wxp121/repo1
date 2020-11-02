@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wxp.mapper.TeacherMapper">
+
+    <!--添加教师-->
+    <insert id="insert" parameterType="Teacher">
+        insert tb_teacher(teacher_name,teacher_sex,teacher_birth,teacher_photo,class_id)
+		VALUES(#{teacher_name},#{teacher_sex},#{teacher_birth},#{teacher_photo},#{class_id})
+    </insert>
+
+    <!--修改教师-->
+    <update id="Update" parameterType="Teacher">
+        update tb_teacher set teacher_name=#{teacher_name} , teacher_sex=#{teacher_sex} , teacher_birth=#{teacher_birth} , teacher_photo=#{teacher_photo} , class_id = #{class_id} where teacher_id = #{teacher_id}
+    </update>
+
+    <!--删除教师-->
+    <delete id="Delete" parameterType="int">
+        delete from tb_teacher where teacher_id = #{teacher_id}
+    </delete>
+
+    <!--查询所有教师-->
+    <resultMap id="teachersvo" type="TeacherVo">
+        <id property="teacher_id" column="teacher_id"></id>
+        <association  column="classes" property="classes" javaType="Classes">
+            <id property="class_id" column="class_id"></id>
+        </association>
+    </resultMap>
+
+    <select id="QueryAll" resultMap="teachersvo">
+        SELECT t.*,c.* from tb_teacher t join tb_class c on t.class_id = c.class_id order by t.teacher_id asc
+    </select>
+
+    <!--根据ID查询教师-->
+    <select id="QueryOne" resultType="com.wxp.pojo.Teacher" parameterType="int">
+        SELECT * from tb_teacher where teacher_id = #{teacher_id}
+    </select>
+
+</mapper>

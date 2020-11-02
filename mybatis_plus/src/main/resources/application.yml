@@ -1,0 +1,11 @@
+mybatis-plus:
+  mapper-locations: classpath:com/wxp/mapper/*.xml
+  type-aliases-package: com.wxp.entity
+  configuration:
+    map-underscore-to-camel-case: true
+    auto-mapping-behavior: full
+spring:
+  thymeleaf:
+    cache: false
+  profiles:
+    active: druid

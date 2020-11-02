@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+欢迎<span sec:authentication="name"></span>登陆系统！！<br>
+    <a th:href="@{/booksinfo/list}">查询</a><br>
+    <a th:href="@{/booksinfo/add}">添加</a><br>
+    <a th:href="@{/booksinfo/update}">修改</a><br>
+    <a th:href="@{/booksinfo/delete}">删除</a><br>
+    <a th:href="@{/logout}">注销</a><br>
+</body>
+</html>
